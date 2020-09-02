@@ -9,7 +9,18 @@
 		"node_modules": true,
 		"*.code-workspace": true
 	},
+	"files.insertFinalNewline": true,
 	"editor.tabSize": 2,
 	"editor.detectIndentation": false,
 	"editor.insertSpaces": false,
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true,
+		"eslint.autoFixOnSave": true,
+	},
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	},
+	"javascript.format.enable": false,
+	"typescript.format.enable": false
 }

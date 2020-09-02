@@ -1,14 +1,13 @@
 {
- "name": "template-library",
+ "name": "jsonbox",
  "version": "0.0.0",
- "description": "Template for NPM library",
+ "description": "Typescript implementation for jsonbox",
  "author": "PayFunc",
  "license": "MIT",
- "repository": "https://github.com/payfunc/template-library",
+ "repository": "https://github.com/payfunc/jsonbox",
  "bugs": {
-  "url": "https://github.com/payfunc/template-library/issues"
+  "url": "https://github.com/payfunc/jsonbox/issues"
  },
- "homepage": "https://payfunc.com/open-source/template-library",
  "private": false,
  "main": "dist/index.js",
  "typings": "dist/index.d.ts",
@@ -40,23 +39,32 @@
  },
  "scripts": {
   "dev": "watch 'npm run build' .",
-  "lint": "tslint --config tslint.json --project .",
+  "lint": "eslint '**/*.{js,ts,tsx}'",
+  "fix": "eslint '**/*.{js,ts,tsx}' --fix",
   "build": "tsc -p .",
   "test": "jest",
   "test:watch": "watch jest",
   "prepare": "npm run build",
   "clean": "rm -rf dist node_modules coverage"
  },
- "dependencies": {},
+ "dependencies": {
+  "gracely": "0.0.36",
+  "node-fetch": "^2.6.0"
+ },
  "devDependencies": {
   "@types/jest": "^26.0.0",
   "@types/node": "^14.0.13",
+  "@types/node-fetch": "^2.5.7",
   "babel-core": "^6.26.3",
   "babel-jest": "^26.0.1",
   "jest": "^26",
   "ts-jest": "^26.1.0",
-  "tslint": "^6.1.2",
   "typescript": "^3.9.5",
-  "watch": "^1.0.2"
+  "watch": "^1.0.2",
+  "eslint": "^7.7.0",
+  "eslint-plugin-prettierx": "github:nilssonemma/eslint-plugin-prettierx#master",
+  "prettierx": "github:simonmika/prettierx#newline-before-clause",
+  "@typescript-eslint/eslint-plugin": "^3.7.1",
+  "@typescript-eslint/parser": "^3.7.1"
  }
 }
