@@ -2,13 +2,6 @@ import * as gracely from "gracely"
 import { fetch, Response as FetchResponse } from "./fetch"
 import { Document } from "./Document"
 
-export interface parameterInterface {
-	method: string
-	jsonId?: string
-	bodyResource?: Record<string, unknown>
-	metaData?: boolean
-}
-
 export class Collection<T> {
 	private readonly headers: { [key: string]: string }
 	constructor(private readonly url: string = "https://jsonbox.io", private readonly boxId: string) {
