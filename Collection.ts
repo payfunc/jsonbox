@@ -10,32 +10,36 @@ export class Collection<T> {
 			Accept: "application/json; charset=utf-8",
 		}
 	}
-	async create(resource: T): Promise<Document<T> | gracely.Error> {
-		const body = JSON.stringify(resource, undefined, "  ")
-		const response = await fetch(this.url + "/" + this.boxId, { method: "POST", headers: this.headers, body })
+
+	private async fetchResponse(method: string, bodyResource?: T, id?: string, metaData?: boolean) {
+		const body = JSON.stringify(bodyResource, undefined, "  ")
+		const url = this.url + (metaData ? "/_meta/" : "/") + this.boxId + (id == undefined ? "" : "/" + id)
+		const response = await fetch(url, {
+			method: method,
+			headers: this.headers,
+			body,
+		})
 		return response.ok ? response.json() : this.getError(response)
 	}
 
+	async create(resource: T): Promise<Document<T> | gracely.Error> {
+		return this.fetchResponse("POST", resource, undefined)
+	}
+
 	async list(): Promise<Document<T>[] | gracely.Error> {
-		const response = await fetch(this.url + "/" + this.boxId, { method: "GET", headers: this.headers })
-		return response.ok ? response.json() : this.getError(response)
+		return this.fetchResponse("GET", undefined, undefined)
 	}
 	async get(id: string): Promise<Document<T> | gracely.Error> {
-		const response = await fetch(this.url + "/" + this.boxId + "/" + id, { method: "GET", headers: this.headers })
-		return response.ok ? response.json() : this.getError(response)
+		return this.fetchResponse("GET", undefined, id)
 	}
 	async delete(id: string): Promise<true | gracely.Error> {
-		const response = await fetch(this.url + "/" + this.boxId + "/" + id, { method: "DELETE", headers: this.headers })
-		return response.ok ? response.json() : this.getError(response)
+		return this.fetchResponse("DELETE", undefined, id)
 	}
 	async update(resource: T, id: string): Promise<true | gracely.Error> {
-		const body = JSON.stringify(resource, undefined, "  ")
-		const response = await fetch(this.url + "/" + this.boxId + "/" + id, { method: "PUT", headers: this.headers, body })
-		return response.ok ? response.json() : this.getError(response)
+		return this.fetchResponse("PUT", resource, id)
 	}
 	async getMetadata(): Promise<T | gracely.Error> {
-		const response = await fetch(this.url + "/_meta/" + this.boxId, { method: "PUT", headers: this.headers })
-		return response.ok ? response.json() : this.getError(response)
+		return this.fetchResponse("PUT", undefined, undefined, true)
 	}
 
 	private async getError(response: FetchResponse): Promise<gracely.Error> {
