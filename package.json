@@ -49,7 +49,7 @@
  },
  "dependencies": {
   "gracely": "0.0.36",
-  "node-fetch": "^2.6.0"
+  "node-fetch": "^2.6.1"
  },
  "devDependencies": {
   "@types/jest": "^26.0.0",
